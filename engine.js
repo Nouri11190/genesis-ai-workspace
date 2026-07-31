@@ -1,9 +1,35 @@
+"use strict";
+
+const fs = require("fs");
+const path = require("path");
+
+const template = require("./template.json");
+
+/**
+ * Create a new Genesis project.
+ */
+function createProject(projectName) {
+
+    const projectPath = path.join(__dirname, "projects", projectName);
+
+    if (fs.existsSync(projectPath)) {
+        return false;
+    }
+
+    fs.mkdirSync(projectPath, { recursive: true });
+
+    createDirectories(projectPath, template);
+    createFiles(projectPath, template);
+
+    return true;
+}
+
+/**
+ * Create project directories.
+ */
 function createDirectories(projectPath, template) {
 
-    const fs = require("fs");
-    const path = require("path");
-
-    template.directories.forEach(dir => {
+    template.directories.forEach((dir) => {
 
         const target = path.join(projectPath, dir);
 
@@ -16,9 +42,10 @@ function createDirectories(projectPath, template) {
     return true;
 }
 
+/**
+ * Create project files.
+ */
 function createFiles(projectPath, template) {
-    const fs = require("fs");
-    const path = require("path");
 
     template.files.forEach((file) => {
 
@@ -32,3 +59,9 @@ function createFiles(projectPath, template) {
 
     return true;
 }
+
+module.exports = {
+    createProject,
+    createDirectories,
+    createFiles
+};
