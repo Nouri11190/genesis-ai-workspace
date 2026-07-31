@@ -2,6 +2,9 @@
 
 "use strict";
 
+const fs = require("fs");
+const path = require("path");
+
 const pkg = require("../package.json");
 const engine = require("../engine");
 
@@ -23,11 +26,13 @@ Usage:
   genesis help
   genesis version
   genesis new <project>
+  genesis list
 
 Commands:
   help       Show help
   version    Show version
   new        Create a new project
+  list       List all projects
 `);
         break;
 
@@ -38,9 +43,7 @@ Commands:
             process.exit(1);
         }
 
-        const success = engine.createProject(argument);
-
-        if (success) {
+        if (engine.createProject(argument)) {
             console.log("Success : true");
             console.log("Project : " + argument);
             console.log("Location: " + process.cwd() + "/projects/" + argument);
@@ -48,6 +51,36 @@ Commands:
             console.log("Success : false");
             console.log("Project already exists.");
         }
+
+        break;
+
+    case "list":
+
+        const projectsPath = path.join(process.cwd(), "projects");
+
+        if (!fs.existsSync(projectsPath)) {
+            console.log("Projects directory not found.");
+            break;
+        }
+
+        const projects = fs.readdirSync(projectsPath)
+            .filter(name =>
+                fs.statSync(path.join(projectsPath, name)).isDirectory()
+            )
+            .sort();
+
+        console.log("");
+        console.log("Genesis Projects");
+        console.log("----------------");
+
+        if (projects.length === 0) {
+            console.log("No projects found.");
+            break;
+        }
+
+        projects.forEach((project, index) => {
+            console.log(`${index + 1}. ${project}`);
+        });
 
         break;
 
