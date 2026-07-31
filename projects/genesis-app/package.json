@@ -1,19 +1,20 @@
 {
   "name": "genesis-app",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs",
-    "test": "tests"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "version": "0.1.0",
+  "description": "First application built on Genesis Core.",
+  "main": "src/index.js",
   "type": "commonjs",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node tests/app.js"
+  },
+  "keywords": [
+    "genesis",
+    "application",
+    "core"
+  ],
+  "author": "Genesis Project",
+  "license": "MIT",
   "dependencies": {
     "genesis-core": "file:../genesis-core"
   }
