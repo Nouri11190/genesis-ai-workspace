@@ -1,0 +1,21 @@
+{
+  "name": "genesis-ai-workspace",
+  "version": "0.1.0",
+  "description": "Genesis AI Workspace is the foundational development workspace for the Genesis ecosystem.",
+  "main": "workspace.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node workspace.js",
+    "test": "node tests/index.js"
+  },
+  "keywords": [
+    "genesis",
+    "workspace",
+    "cli",
+    "template",
+    "project",
+    "documentation"
+  ],
+  "author": "Genesis Project",
+  "license": "MIT"
+}

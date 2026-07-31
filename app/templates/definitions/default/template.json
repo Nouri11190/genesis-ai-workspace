@@ -1,0 +1,17 @@
+{
+  "name": "default",
+  "version": "1.0.0",
+  "directories": [
+    "src",
+    "docs",
+    "config",
+    "runtime",
+    "logs",
+    "tests",
+    "scripts"
+  ],
+  "files": [
+    "README.md",
+    "project.json"
+  ]
+}
