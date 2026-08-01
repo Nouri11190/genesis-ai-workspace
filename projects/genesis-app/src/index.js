@@ -1,5 +1,5 @@
 const core = require("genesis-core");
-const service = require("./service");
+const service = require("./runtime/services/service");
 const runtime = require("./runtime/manager");
 
 const configFile = "./config/app.json";
