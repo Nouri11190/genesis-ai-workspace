@@ -1,4 +1,5 @@
 const core = require("genesis-core");
+const service = require("./service");
 
 const configFile = "./config/app.json";
 
@@ -16,12 +17,12 @@ class Application {
 
     validate() {
 
-        if (
-            !core.validation.isObject(this.config)
-        ) {
+        if (!core.validation.isObject(this.config)) {
+
             throw new core.errors.GenesisError(
                 "Invalid application configuration"
             );
+
         }
 
         core.logger.info(
@@ -35,6 +36,8 @@ class Application {
         core.logger.info(
             `${this.config.name} running.`
         );
+
+        service.start();
 
         return true;
 
@@ -51,4 +54,22 @@ class Application {
 
 }
 
-module.exports = new Application();
+const app = new Application();
+
+if (require.main === module) {
+
+    try {
+
+        app.start();
+
+    } catch (error) {
+
+        console.error("[ERROR] Genesis App failed to start.");
+        console.error(error.message);
+        process.exit(1);
+
+    }
+
+}
+
+module.exports = app;
