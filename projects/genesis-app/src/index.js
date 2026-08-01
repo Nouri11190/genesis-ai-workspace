@@ -1,6 +1,7 @@
 const core = require("genesis-core");
 const service = require("./runtime/services/service");
 const runtime = require("./runtime/manager");
+const discovery = require("./runtime/project-discovery");
 
 const configFile = "./config/app.json";
 
@@ -38,9 +39,28 @@ class Application {
             `${this.config.name} running.`
         );
 
-        runtime.register("Genesis Service", service);
+        runtime.register(
+            "Genesis Service",
+            service
+        );
 
         runtime.startAll();
+
+        const projects = discovery.discover();
+
+        console.log("");
+        console.log("Genesis Projects");
+        console.log("----------------");
+
+        projects.forEach((project, index) => {
+
+            console.log(
+                `${index + 1}. ${project}`
+            );
+
+        });
+
+        console.log("");
 
         return true;
 
