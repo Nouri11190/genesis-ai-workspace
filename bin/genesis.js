@@ -8,6 +8,32 @@ const path = require("path");
 const pkg = require("../package.json");
 const engine = require("../engine");
 
+function findWorkspaceRoot(start) {
+
+    let current = start;
+
+    while (true) {
+
+        if (
+            fs.existsSync(path.join(current, "workspace.js")) &&
+            fs.existsSync(path.join(current, "engine.js")) &&
+            fs.existsSync(path.join(current, "projects"))
+        ) {
+            return current;
+        }
+
+        const parent = path.dirname(current);
+
+        if (parent === current) {
+            return null;
+        }
+
+        current = parent;
+    }
+}
+
+const workspace = findWorkspaceRoot(process.cwd()) || path.resolve(__dirname, "..");
+
 const command = process.argv[2];
 const argument = process.argv[3];
 
@@ -19,6 +45,7 @@ switch (command) {
 
     case "help":
     case undefined:
+
         console.log(`
 Genesis AI Workspace
 
@@ -34,6 +61,7 @@ Commands:
   new        Create a new project
   list       List all projects
 `);
+
         break;
 
     case "new":
@@ -46,7 +74,6 @@ Commands:
         if (engine.createProject(argument)) {
             console.log("Success : true");
             console.log("Project : " + argument);
-            console.log("Location: " + process.cwd() + "/projects/" + argument);
         } else {
             console.log("Success : false");
             console.log("Project already exists.");
@@ -54,13 +81,13 @@ Commands:
 
         break;
 
-    case "list":
+    case "list": {
 
-        const projectsPath = path.join(process.cwd(), "projects");
+        const projectsPath = path.join(workspace, "projects");
 
         if (!fs.existsSync(projectsPath)) {
             console.log("Projects directory not found.");
-            break;
+            process.exit(1);
         }
 
         const projects = fs.readdirSync(projectsPath)
@@ -73,16 +100,12 @@ Commands:
         console.log("Genesis Projects");
         console.log("----------------");
 
-        if (projects.length === 0) {
-            console.log("No projects found.");
-            break;
-        }
-
         projects.forEach((project, index) => {
             console.log(`${index + 1}. ${project}`);
         });
 
         break;
+    }
 
     default:
         console.log(`Unknown command: ${command}`);
