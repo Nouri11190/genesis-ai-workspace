@@ -1,5 +1,6 @@
 const core = require("genesis-core");
 const service = require("./service");
+const runtime = require("./runtime/manager");
 
 const configFile = "./config/app.json";
 
@@ -37,7 +38,9 @@ class Application {
             `${this.config.name} running.`
         );
 
-        service.start();
+        runtime.register("Genesis Service", service);
+
+        runtime.startAll();
 
         return true;
 
@@ -57,6 +60,14 @@ class Application {
 const app = new Application();
 
 if (require.main === module) {
+
+    process.on("SIGINT", () => {
+
+        runtime.stopAll();
+
+        process.exit(0);
+
+    });
 
     try {
 
