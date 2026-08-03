@@ -3,6 +3,7 @@ const service = require("./runtime/services/service");
 const runtime = require("./runtime/manager");
 const discovery = require("./runtime/project-discovery");
 const reader = require("./runtime/project-reader");
+const validator = require("./runtime/project-validator");
 
 const configFile = "./config/app.json";
 
@@ -53,22 +54,38 @@ class Application {
         console.log("Genesis Projects");
         console.log("----------------");
 
-        projects.forEach((project, index) => {
+        projects.forEach((project) => {
 
             const info = reader.read(project);
+            const health = validator.validate(project);
+
+            const healthy =
+                health.project &&
+                health.package &&
+                health.source;
+
+            const icon = healthy ? "✓" : "✗";
 
             if (info) {
 
                 console.log(
-                    `${index + 1}. ${info.name} (${info.version})`
+                    `${icon} ${info.name} (${info.version})`
                 );
 
             } else {
 
                 console.log(
-                    `${index + 1}. ${project} (No project.json)`
+                    `${icon} ${project}`
                 );
 
+            }
+
+            if (!health.package) {
+                console.log("    Missing package.json");
+            }
+
+            if (!health.source) {
+                console.log("    Missing src/");
             }
 
         });
