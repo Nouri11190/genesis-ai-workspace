@@ -2,6 +2,7 @@ const core = require("genesis-core");
 const service = require("./runtime/services/service");
 const runtime = require("./runtime/manager");
 const discovery = require("./runtime/project-discovery");
+const reader = require("./runtime/project-reader");
 
 const configFile = "./config/app.json";
 
@@ -54,9 +55,21 @@ class Application {
 
         projects.forEach((project, index) => {
 
-            console.log(
-                `${index + 1}. ${project}`
-            );
+            const info = reader.read(project);
+
+            if (info) {
+
+                console.log(
+                    `${index + 1}. ${info.name} (${info.version})`
+                );
+
+            } else {
+
+                console.log(
+                    `${index + 1}. ${project} (No project.json)`
+                );
+
+            }
 
         });
 
