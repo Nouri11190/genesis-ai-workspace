@@ -1,41 +1,24 @@
 # Genesis AI Workspace
 
-Genesis AI Workspace is the foundational development workspace for the Genesis ecosystem. It provides a modular command-line environment for creating, managing, and maintaining Genesis projects.
-
----
-
-## Version
-
-**Current Version:** 0.1.0
-
-**Status:** Stable Release
-
----
+Genesis AI Workspace is a project workspace, runtime, and application ecosystem for building, managing, and deploying Genesis applications.
 
 ## Features
 
-- Genesis Core
-- Project Manager
+- Genesis CLI
+- Project Generator
+- Runtime Manager
+- Project Discovery
+- Project Validation
+- Project Launcher
 - Template Engine
-- Documentation Generator
-- Terminal Command System
-- Workspace CLI
-
----
-
-## Requirements
-
-- Node.js
-- Linux or Termux
-
----
+- Workspace Management
 
 ## Installation
 
 Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Nouri11190/genesis-ai-workspace.git
 cd genesis-ai-workspace
 ```
 
@@ -45,50 +28,37 @@ Install dependencies:
 npm install
 ```
 
----
-
-## Usage
-
-Create a project:
+## Create a Project
 
 ```bash
-node workspace.js project create my-project
+genesis new my-project
 ```
 
-Generate workspace documentation:
+## List Projects
 
 ```bash
-node workspace.js docs generate
+genesis list
 ```
 
----
+## Run Genesis App
 
-## Project Structure
+```bash
+cd projects/genesis-app
+npm start
+```
+
+## Repository Structure
 
 ```
 app/
+bin/
 config/
 docs/
-logs/
 projects/
 runtime/
-scripts/
 tests/
-workspace.js
 ```
-
----
-
-## Engineering Principles
-
-- Finish before expanding.
-- Keep modules focused.
-- Verify every implementation.
-- Release stable versions.
-- Improve through iteration.
-
----
 
 ## License
 
-MIT License.
+MIT
