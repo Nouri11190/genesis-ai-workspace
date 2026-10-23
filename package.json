@@ -1,6 +1,6 @@
 {
   "name": "genesis-ai-workspace",
-  "version": "0.2.0",
+  "version": "0.4.1",
   "description": "Genesis AI Workspace is the foundational development workspace for the Genesis ecosystem.",
   "main": "workspace.js",
   "type": "commonjs",

@@ -11,7 +11,7 @@ function banner() {
     console.log(" GENESIS AI WORKSPACE");
     console.log("==================================");
     console.log("Name     : Genesis AI Workspace");
-    console.log("Version  : 0.1.0");
+    console.log("Version  :", require("./package.json").version);
     console.log("Status   : Development");
     console.log("Location : " + process.cwd());
     console.log("==================================");

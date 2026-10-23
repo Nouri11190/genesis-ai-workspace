@@ -6,7 +6,7 @@ class ConfigurationService {
 
         return {
             name: "Genesis AI Workspace",
-            version: "0.1.0",
+            version: require("../../package.json").version,
             status: "Development",
             description: "Genesis AI Engineering Platform"
         };
